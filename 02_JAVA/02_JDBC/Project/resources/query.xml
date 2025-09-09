@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>SQL Queries</comment>
+    <entry key="insertMatch">INSERT INTO matches VALUES(SEQ_MATCHNO.NEXTVAL, ?, ?, ?, 'draw')</entry>
+    <entry key="selectMatch">SELECT * FROM matches</entry>
+    <entry key ="deleteMatch">DELETE FROM matches WHERE match_id = ?</entry>
+    <entry key = "updateMatch">UPDATE matches SET teamA = ?, teamB = ?, match_date = ?</entry>
+    
+    <entry key="insertMember">INSERT INTO members VALUES(SEQ_USERNO.NEXTVAL, ?, ?, ?, ?)</entry>
+    <entry key="login">SELECT * FROM members WHERE userId = ? AND userPwd = ? </entry>
+    <entry key="getMyTeam">SELECT myTeam FROM members WHERE userId = ? </entry>
+    <entry key="selectMatches">SELECT * FROM matches WHERE teamA = ? OR teamB = ? ORDER BY match_id </entry>
+    <entry key="updateResult"> UPDATE matches SET result = ? WHERE match_id =? </entry>
+    
+    <entry key="increaseWin"> UPDATE TEAMS SET win = win + 1, totalScore = totalScore + 3 WHERE teamName = ? </entry>
+    <entry key="increaseLose"> UPDATE TEAMS SET lose = lose + 1 WHERE teamName = ? </entry>
+    <entry key="increaseDraw"> UPDATE TEAMS SET DRAW = DRAW + 1, totalScore = totalScore + 1 WHERE teamName in (? , ?) </entry>
+    <entry key="getRanking">SELECT * FROM teams ORDER BY totalScore DESC</entry>
+</properties>
