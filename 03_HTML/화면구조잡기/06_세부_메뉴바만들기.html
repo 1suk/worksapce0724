@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #navigater > ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 20px;
+    }
+
+    #navigater .menu-item {
+      position: relative; /* 서브메뉴 위치 기준 */
+    }
+
+    #navigater .menu-item a {
+      display: block;
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 60px;
+      color: black;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+
+    #navigater .menu-item a:hover {
+      transform: scale(1.08);
+    }
+
+    /* 서브메뉴 스타일 */
+    .menu-item ul {
+      list-style: none;
+      padding: 12px;
+      margin: 0;
+      display: none; /* 기본 숨김 */
+      position: absolute;
+      top: 100%;
+      left: 0;
+      flex-direction: column; /* 세로 정렬 */
+      border: 1px solid black;
+      border-radius: 12px;
+      background: white;
+    }
+
+    .menu-item:hover ul {
+      display: flex;
+    }
+
+    .menu-item ul li {
+      margin: 8px 0;
+    }
+
+    .menu-item ul li a {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: normal;
+      color: black;
+      text-decoration: none;
+    }
+
+    .menu-item ul li a:hover {
+      color: blue; 
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div id="navigater">
+      <ul>
+        <li class="menu-item"><a href="#">SQL</a></li>
+        <li class="menu-item"><a href="#">Java</a></li>
+        <li class="menu-item">
+          <a href="#">Front</a>
+          <ul>
+            <li><a href="#">HTML</a></li>
+            <li><a href="#">CSS</a></li>
+            <li><a href="#">JavaScript</a></li>
+          </ul>
+        </li>
+        <li class="menu-item"><a href="#">Server</a></li>
+        <li class="menu-item"><a href="#">Framework</a></li>
+        <li class="menu-item"><a href="#">AWS</a></li>
+      </ul>
+    </div>
+  </main>
+</body>
+</html>
