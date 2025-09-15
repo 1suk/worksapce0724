@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; 
+            padding: 10px 20px;
+            border-bottom: 1px solid #3b5afe;
+        }
+
+        .head-menu {
+            display : flex;
+            gap : 40px;
+            margin-right: 100px;
+        }
+
+        .head-menu div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size : 12px;
+            cursor : pointer;
+        }
+
+        .logo {
+            font-size: 45px;
+            font-weight: bold;
+            color: #3b5afe;
+            padding: 10px;
+            margin-left: 100px;
+        }
+
+        
+        .search-bar {
+            flex: 1;
+            margin: 0 10px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width : 70%;
+            padding : 16px 20px 16px 50px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            font-size: 18px;
+            background-color: #f2f2f2;
+        }
+
+        .search-bar .search-icon {
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top : 12px;
+            left: 12px;
+            font-size: 14px;
+            color: #666;
+            pointer-events: none; 
+        }
+
+        .service-menu {
+            display: flex;
+            align-items: flex-start;
+
+            text-align: center;
+            margin-left : 250px;
+            margin-top: 30px;
+        }
+
+        .service-menu ul {
+            display: grid;
+            grid-template-columns: repeat(10, max-content);
+            flex-wrap : wrap;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .service-menu li a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.2s;
+        }
+          
+        .service-menu li a:hover {
+            transform: scale(1.1);
+        }
+
+        .service-menu li img {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 5px;
+        }
+
+        .service-menu li {
+            flex : 0 0 auto;  
+        }
+
+        .banner {
+            position: relative;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            max-width: 1500px;
+            margin: 0 auto;
+            overflow: hidden; 
+            top: 100px;
+        }
+        
+        .cards {
+            display: flex;
+            gap: 10px;  
+        }
+        
+        .card {
+            width: 650px; 
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 16px;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .arrow.prev {
+            left: 70px;
+        }
+        
+        .arrow.next {
+            right: 70px;
+        }
+
+        .sub-menu {
+            position: relative;
+            top : 150px;
+            left : 100px;
+            max-width: 1500px;
+        }
+
+        .submenu-item {
+            display: flex;
+            gap: 20px;            
+            list-style: none;     
+            padding: 0;
+            margin: 0;
+          }
+          
+        .submenu-item  li {
+            background: #f9fafb; 
+            border-radius: 12px;
+            padding: 10px 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;  
+            font-size: 18px;   
+            font-weight: 500;
+            text-align: center;
+            min-width: 170px; 
+            height: 50px;      
+        }
+        
+          
+        .submenu-item li span {
+            margin-right: 8px;    
+            font-size: 18px;      
+        }
+        
+        .promo-banner {
+            position: relative;
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            max-width: 1300px; /* 예시: 배너가 최대로 가질 수 있는 너비 (원하는 값으로 조절) */
+            margin: 0 auto;
+            border-radius: 10px;
+            top : 200px;
+        }
+
+        .promo-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .accommo-section {
+            position : relative;
+            top : 180px;
+        }
+
+        .accommo-tabs {
+            display: flex;
+            gap: 8px;   
+        }
+
+        .accommo-tabs .tab{
+            padding: 8px 16px;       
+            border-radius: 10px;    
+            border: none;
+            background-color: #f5f5f5;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .tab:hover {
+            background-color: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
+        .accommo-list {
+            position: relative;
+            display: flex;
+            overflow : hidden;
+            gap: 20px;
+            left : 70px;
+          }
+          
+        .accommo-card {
+            position: relative;
+            width: 240px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+            display: block;
+            flex-shrink: 0;
+        }
+          
+        .accommo-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+         
+        .accommo-card .info {
+            padding: 12px;
+          }
+          
+        .accommo-card .info h3,
+        .accommo-card .info p {
+            margin: 0;            
+            line-height: 1.4;     
+          }
+          
+        .accommo-card .info h3 {
+            margin-bottom: 4px;  
+            font-size: 16px;
+        }
+          
+        .accommo-card .info p + p {
+            margin-top: 2px;     
+        }
+        
+        .accommo-card .discount {
+            color: red;
+            font-weight: bold;
+            margin-right: 4px;
+        }
+
+        .accommo-card .rating {
+            color: #333;
+            font-size: 14px;
+            margin: 2px 0 0 0;
+        }
+
+        .accommo-section {
+            max-width: 1500px;   
+            margin: 60px auto;  
+            padding: 0 20px;     
+            position: relative;  
+        }
+        
+        
+        .accommo-header {
+            display: flex;
+            flex-direction: column; 
+            align-items: flex-start;
+            margin-bottom: 10px; 
+            width: 1370px;
+            margin-left: auto; 
+            margin-right: 0; 
+        }
+
+        .accommo-header h2 small {
+            font-size: 14px;
+            color: #666;
+            margin-left: 8px;
+        }
+        
+        .accommodation {
+            max-width: 1500px;   
+            margin: 60px auto;  
+            padding: 0 20px;     
+            position: relative; 
+            bottom : 40px;
+        }
+
+        .site-footer {
+            background-color: #f5f5f7;
+            padding: 20px;
+            font-size: 14px;
+            color: #333;
+            text-align: left;
+            position: relative;
+            top : 150px;
+          }
+          
+          .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+          
+          .footer-nav {
+            margin: 15px 0;
+          }
+          
+          .footer-nav a {
+            margin: 0 4px;
+            color: #555;
+            text-decoration: none;
+          }
+          
+          .footer-nav a:hover {
+            text-decoration: underline;
+          }
+          
+          .footer-note {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #888;
+            line-height: 1.5;
+          }
+          
+          .footer-copy {
+            margin-top: 15px;
+            color: #aaa;
+            font-size: 12px;
+          }
+
+        .category {
+            position: relative;
+            right : 40px;
+            top : 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: white;   
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 22px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 350px;
+            height: 100%;
+            background: #fafafa;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+            transition: left 0.3s ease;
+            overflow-y: auto;
+            z-index: 1000;
+            padding: 20px;
+          }
+          
+          /* 메뉴 열림 */
+          #menu-toggle:checked ~ .side-menu {
+            left: 0;
+          }
+          
+          .menu-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            margin-bottom: 20px;
+          }
+          
+          .back-btn {
+            font-size: 20px;
+            cursor: pointer;
+            color: #555;
+          }
+          
+          .header-title {
+            font-size: 16px;
+          }
+          
+          .menu-section {
+            margin-bottom: 25px;
+            border: 1px solid #ccc;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px 10px;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+          }
+          
+          .menu-title {
+            font-size: 14px;
+            font-weight: normal;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+          }
+
+          .menu-title img {
+            width: 25px;
+            height: 25px;
+          }
+          
+          .submenu {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 12px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: start;
+          }
+          
+          .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+          }
+          
+          .tags span {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 13px;
+            background: #fafafa;
+            cursor: pointer;
+          }
+          .tags span:hover {
+            background: #f0f0f0;
+          }
+          
+    </style>
+</head>
+<body>
+    <header class ="header">
+        <div class="logo">NOL</div>
+        <div class="search-bar">
+            <input type="text" placeholder="어디로 떠날까요?">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" class="search-icon">
+                <path fill="currentColor" fill-rule="evenodd" d="M15.328 16.542a7.501 7.501 0 1 1 1.091-1.03l4.112 4.11a.75.75 0 1 1-1.06 1.061zm1.424-5.944a6.001 6.001 0 1 1-12.002 0 6.001 6.001 0 0 1 12.002 0" clip-rule="evenodd">   
+                </path>
+            </svg>
+        </div>
+        <div class="head-menu">
+            <div class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24">
+                    <path fill="currentColor" fill-rule="evenodd" d="M12.25 4.414a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5M7 8.164a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0" clip-rule="evenodd"></path>
+                    <path fill="currentColor" fill-rule="evenodd" d="M19.19 16.539c-3.721-4.094-10.159-4.094-13.88 0a4.07 4.07 0 0 0-1.06 2.74v1.017c0 .203.165.368.368.368h15.264a.37.37 0 0 0 .368-.368v-1.017c0-1.014-.378-1.99-1.06-2.74M4.2 15.529c4.316-4.748 11.784-4.748 16.1 0a5.57 5.57 0 0 1 1.45 3.75v1.017a1.87 1.87 0 0 1-1.868 1.868H4.618a1.87 1.87 0 0 1-1.868-1.868v-1.017c0-1.387.517-2.723 1.45-3.75" clip-rule="evenodd"></path>
+                </svg>
+                <span>마이</span>
+            </div>
+            <div class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" class="text-fill-neutral-main">
+                    <path fill="currentColor" fill-rule="evenodd" d="M19.64 6.063a4.25 4.25 0 0 0-6.011 0l-1.628 1.629-1.629-1.629a4.25 4.25 0 0 0-6.01 6.01l6.858 6.859q.073.072.153.127l.017.012.016.013A.99.99 0 0 0 12.713 19l6.926-6.926a4.25 4.25 0 0 0 0-6.01m-7.072-1.06a5.75 5.75 0 1 1 8.132 8.131l-6.927 6.927a2.49 2.49 0 0 1-3.27.22 2.6 2.6 0 0 1-.343-.288L3.3 13.134a5.75 5.75 0 0 1 8.132-8.131l.568.567z" clip-rule="evenodd"></path>
+                </svg> 
+                <span>찜</span>
+            </div>
+            <div class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" class="text-fill-neutral-main">
+                    <path fill="currentColor" d="M2.5 2.25a.75.75 0 0 0 0 1.5h1.78a.25.25 0 0 1 .236.17l3.317 9.95a2.75 2.75 0 0 0 2.608 1.88h7.173a2.75 2.75 0 0 0 2.575-1.784l1.753-4.676a2.25 2.25 0 0 0-2.107-3.04H9.5a.75.75 0 0 0 0 1.5h10.336a.75.75 0 0 1 .702 1.013l-1.754 4.676a1.25 1.25 0 0 1-1.17.811h-7.173a1.25 1.25 0 0 1-1.185-.855L5.939 3.447A1.75 1.75 0 0 0 4.28 2.25z"></path><path fill="currentColor" fill-rule="evenodd" d="M10 22a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5m0-1.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2M18 22a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5m0-1.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2" clip-rule="evenodd"></path>
+                </svg>
+                <span>장바구니</span>
+            </div>
+        </header>
+
+    <nav class ="service-menu">
+        <input type="checkbox" id="menu-toggle" hidden>
+        <label for="menu-toggle" class="category">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+               viewBox="0 0 24 24">
+            <path fill="currentColor" fill-rule="evenodd"
+                  d="M3 7c0 .414.336.75.75.75h16.5a.75.75 
+                     0 0 0 0-1.5H3.75A.75.75 0 0 0 
+                     3 7m0 5c0 .414.336.75.75.75h16.5a.75.75 
+                     0 0 0 0-1.5H3.75A.75.75 0 0 0 
+                     3 12m0 5c0 .414.336.75.75.75h16.5a.75.75 
+                     0 0 0 0-1.5H3.75A.75.75 0 0 0 3 17"
+                  clip-rule="evenodd"></path>
+          </svg>
+        </label>
+
+        <div class="side-menu">
+            <div class="menu-header">
+                <label for="menu-toggle" class="back-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="size-24 pc:size-24"><path fill="currentColor" d="M15.598 3.338a.75.75 0 0 0-1.061 0l-8.132 8.131a.75.75 0 0 0 0 1.061l8.132 8.132a.75.75 0 0 0 1.06-1.06L7.998 12l7.6-7.602a.75.75 0 0 0 0-1.06">
+                </path>
+            </svg>
+        </label>
+              </div>
+              <div class="menu-title"><img src="https://image6.yanolja.com/cx-ydm/QmjaxbXaCnJIyagM" alt=""><span>국내숙소</span></div>
+             <div class="menu-section">
+                <div class="submenu">
+                  <div>호텔/리조트</div>
+                  <div>펜션/풀빌라</div>
+                  <div>모텔</div>
+                  <div>가족형숙소</div>
+                  <div>글램핑/캠핑</div>
+                  <div>게스트하우스</div>
+                </div>
+                <div class="tags">
+                  <span>QR체크인</span>
+                  <span>리조트</span>
+                  <span>프리미엄 호텔</span>
+                  <span>프리미엄 펜션</span>
+                  <span>풀빌라</span>
+                </div>
+            </div>
+            <div class="menu-title"><img src="https://image6.yanolja.com/cx-ydm/b2DAywGxnMqJljYM" alt="놀거리"><span>놀거리</span></div>
+            <div class="menu-section">
+                <div class="submenu">
+                  <div>국내래저</div>
+                  <div>공연전시</div>
+                  <div>미디어아트</div>
+                  <div>키즈전용관</div>
+                </div>
+                <div class="tags">
+                  <span>제주입장관</span>
+                  <span>워터파크/스파</span>
+                </div>
+            </div>
+            <div class="menu-title"><img src="https://image6.yanolja.com/cx-ydm/p2yqi2HhtTG4BxZT" alt="교통/항공"><span>교통/항공</span></div>
+            <div class="menu-section">
+                <div class="submenu">
+                  <div>고속버스</div>
+                  <div>기차</div>
+                  <div>렌터카</div>
+                  <div>항공</div>
+                </div>
+            </div>
+        </div>    
+        
+        <ul>
+            <li>
+               <a href="flights.html">
+                <img src="https://image6.yanolja.com/cx-ydm/hYhG3cbSXLAcEysI" alt="항공">
+                <span>항공</span>
+               </a> 
+            </li>
+            <li>
+                <a href="">
+                 <img src="https://image6.yanolja.com/cx-ydm/RNr1sE2q8UA2UeUt" alt="해외숙소">
+                 <span>해외숙소</span>
+                </a> 
+             </li>
+             <li>
+                <a href="">
+                 <img src="https://image6.yanolja.com/cx-ydm/8iDpw62B6rzvMdEj" alt="해외투어티켓">
+                 <span>해외투어티켓</span>
+                </a> 
+             </li>
+             <li>
+                <a href="">
+                <img src="https://image6.yanolja.com/cx-ydm/qf5b0xpM6bkaBUc8" alt="국내숙소">
+                <span>국내숙소</span>
+                </a>
+             </li>
+             <li>
+                <a href="">
+                    <img src="https://image6.yanolja.com/cx-ydm/FrHqBWRAWuqyRQtJ" alt="공연전시">
+                    <span>공연전시</span>
+                </a>
+             </li>
+             <li>
+                <a href="">
+                    <img src="https://image6.yanolja.com/cx-ydm/rlxTeITMziWMEtre" alt="호텔/리조트">
+                    <span>호텔/리조트</span>
+                </a>
+             </li>
+             <li>
+                <a href="">
+                    <img src="https://image6.yanolja.com/cx-ydm/rXvE3UHEQjKjfwY0" alt="펜션/풀빌라">
+                    <span>펜션/풀빌라</span>
+                </a>
+             </li>
+             <li>
+                <a href="">
+                    <img src="https://image6.yanolja.com/cx-ydm/e21Gc4Jxgdelid8d" alt="글램핑/캠핑">
+                    <span>글램핑/캠핑</span>
+                </a>
+             </li>
+             <li>
+                <a href="">
+                    <img src="https://image6.yanolja.com/cx-ydm/GyXHCDFQVOib8jB6" alt="모텔">
+                    <span>모텔</span>
+                </a>
+             </li>
+             <li>
+                <a href="">
+                    <img src="https://image6.yanolja.com/cx-ydm/aT8RWDTOWuyTqMDA" alt="공연전시">
+                    <span>교통</span>
+                </a>
+             </li>
+             <li>
+                <a href="">
+                     <img src="https://image6.yanolja.com/cx-ydm/uNwtZjUC3b7HNaxQ" alt="놀머니혜택택">
+                     <span>놀머니혜택</span>
+                </a> 
+             </li>
+             <li>
+                 <a href="">
+                     <img src="https://image6.yanolja.com/cx-ydm/hphN6DlLL3HVunfW" alt="난카이리피트">
+                     <span>난카이라피트</span>
+                 </a> 
+              </li>
+              <li>
+                 <a href="">
+                     <img src="https://image6.yanolja.com/cx-ydm/22hBDE2UbRigYBPU" alt="단독특가">
+                     <span>단독특가</span>
+                 </a> 
+              </li>
+              <li>
+                 <a href="">
+                     <img src="https://image6.yanolja.com/cx-ydm/RzYvPqR0R3QtSBFG" alt="오션월드">
+                     <span>오션월드</span>
+                 </a> 
+              </li>
+              <li>
+                 <a href="">
+                     <img src="https://image6.yanolja.com/cx-ydm/W2MaKwvbwz1cX67f" alt="고속버스할인">
+                     <span>고속버스할인</span>
+                 </a> 
+              </li>
+        </ul>
+    </nav>
+    <div class = "banner">
+        <button class="arrow prev">&lt;</button>
+            <div class="cards">
+                <div class="card gold">
+                    <img src="https://image6.yanolja.com/cx-ydm/TK1UeXXCB74dyMMQ" alt="">
+                </div>
+                <div class="card nol">
+                    <img src="https://image6.yanolja.com/cx-ydm/hAqJtU95FEjKo21A" alt="">
+                </div>
+            </div>
+        <button class="arrow next">&gt;</button>            
+    </div>
+
+    <div class = "sub-menu">
+        <ul class="submenu-item">
+            <li><span>🟧</span> 최대3만쿠폰</li>
+            <li><span>🎁</span> NOL드로우</li>
+            <li><span>📅</span> 이번달쿠폰팩</li>
+            <li><span>🎉</span> 이벤트더보기</li>
+          </ul>
+    </div>
+
+    <div class="promo-banner">
+        <img src="https://image6.yanolja.com/cx-ydm/GRtneWM9pEdf2Tzl" alt="혜택배너">
+    </div>
+
+    <div class="accommo-section">
+        <div class="accommo-header">
+          <h2>관심 지역의 많이 찾는 숙소 <small>최근 한 주간 구매 많은 순</small></h2>
+          <nav class="accommo-tabs">
+            <button class="tab">호텔</button>
+            <button class="tab">펜션</button>
+            <button class="tab">모텔</button>
+            <button class="tab">게스트하우스</button>
+          </nav>
+        </div>
+      
+        <div class="accommodation">
+          <button class="arrow prev">&lt;</button>
+          <div class="accommo-list">
+            <div class="accommo-card">
+              <img src="https://yaimg.yanolja.com/v5/2022/08/19/11/640/62ff7403a96236.15906319.jpg" alt="나인트리 바이 파르나스스">
+              <div class="info">
+                <h3>나인트리 바이 파르나스 서울</h3>
+                <p><b>159,800원~</b></p>
+                <p class="rating">★ 4.8 (2,564)</p>
+              </div>
+             </div> 
+            <div class="accommo-card">
+                <img src="https://yaimg.yanolja.com/v5/2022/10/31/12/640/635fc0f6abccc1.66460254.jpg" alt="스카이베이 호텔">
+                <div class="info">
+                  <h3>스카이베이 호텔 경포</h3>
+                  <p><span class="discount">77%</span><b>99,000원~</b></p>
+                  <p class="rating">★ 4.6 (7,040)</p>
+                </div>
+            </div>     
+            <div class="accommo-card">
+                <img src="https://yaimg.yanolja.com/v5/2023/03/28/18/640/64232b9a66f178.61586225.jpg" alt="체스터톤스 숙초">
+                    <div class="info">
+                      <h3>체스터톤스 숙초</h3>
+                      <p><span class="discount">55%</span><b>90,000원</b></p>
+                      <p class="rating">★ 4.6 (2,889)</p>
+                    </div>
+            </div>                     
+            <div class="accommo-card">
+                <img src="https://yaimg.yanolja.com/v5/2023/03/09/14/640/6409f2f0e5ae06.53788514.jpg" alt="광안리 위더스오션">
+                    <div class="info">
+                        <h3>광안리 위더스오션션</h3>
+                        <p><span class="discount">7%</span><b>50,900원~</b></p>
+                        <p class="rating">★ 4.3 (3,128)</p>
+                    </div>
+            </div>
+            <div class="accommo-card">
+                <img src="https://yaimg.yanolja.com/v5/2025/07/24/01/1280/688186af8157f0.27416877.jpg" alt="제주 더테라스뷰">
+                    <div class="info">
+                        <h3>제주 더테라스뷰</h3>
+                        <p><span class="discount">59%</span><b>81,000원~</b></p>
+                        <p class="rating">★ 4.2 (1,258)</p>
+                    </div>
+            </div>
+          </div>
+          <button class="arrow next">&gt;</button>
+        </div>
+      </div>
+    <footer class="site-footer">
+  <div class="footer-container">
+    <p>NOL</p>
+    <p>(주)놀유니버스 | 대표이사: 배보찬 | 사업자 등록번호: 824-81-02515 | 통신판매업신고:2024-성남수정-0912 | 이메일: help.nol@nol-universe.com</p>
+    <p>관광사업자 등록번호: 제2024-000024호 | 주소: 경기도 성남시 수정구 금토로 70 (금토동, 텐엑스타워) | 호스팅 서비스 제공자: (주)놀유니버스</p>
+    <p>고객센터: 1644-1346 (오전 9시 - 익일 새벽 3시)</p>
+    
+    <nav class="footer-nav">
+      <a href="#">회사소개</a>
+      <a href="#">광고제휴문의</a>
+      <a href="#">인재채용</a>
+      <a href="#">개인정보처리방침</a>
+      <a href="#">청소년보호정책</a>
+      <a href="#">서비스 이용약관</a>
+      <a href="#">위치정보 이용약관</a>
+      <a href="#">사업자 정보확인</a>
+      <a href="#">전자금융거래 이용약관</a>
+      <a href="#">전자금융거래 이용자 유의사항</a>
+      <a href="#">분쟁해결기준</a>
+    </nav>
+    
+    <p class="footer-note">
+      (주)놀유니버스는 통신판매 중개자로서 판매자가 아니며, 상품 예약, 이용, 환불 관련 책임은 판매자에게 있습니다.<br>
+      웹사이트 및 콘텐츠 무단 복제, 배포, 전송, 스크래핑 등은 관련 법령에 의해 엄격히 금지됩니다.
+    </p>
+    
+    <p class="footer-copy">© Nol Universe Co., Ltd. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
