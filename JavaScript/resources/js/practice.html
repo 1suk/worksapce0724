@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .area{
+            width: 200px;
+            height:200px;
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h3>문제 1. 색상 선택후 변경 버튼을 클릭하면 색상이 변경되도록 만들어라</h3>
+    <div class="area" id="area1"></div>
+    <input type="color" id="color">
+    <button onclick="changeColorDiv();">변경</button>
+    
+    <script>
+        function changeColorDiv(){
+            let area = document.getElementById('area1');
+            let color = document.getElementById('color').value;
+            area.style.background = color;
+        }
+    </script>
+
+    <h3>문제 2. 버튼에 따른 크기조절이 가능하게 만들어 보세요</h3>
+    <div class="area" id="area2"></div>
+    <button onClick="changeSizeDiv(this)";>50*50</button>
+    <button onClick="changeSizeDiv(this)";>100*100</button>
+    <button onClick="changeSizeDiv(this)";>200*200</button>
+    <script>
+        function changeSizeDiv(click){
+            let area = document.getElementById('area2');
+            let size = click.innerText;
+            let [wdt,hgt] = size.split('*');
+
+            area.style.width = wdt + "px" 
+            area.style.height = hgt+ "px"
+        }
+    </script>
+
+</body>
+</html>
