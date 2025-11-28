@@ -8,7 +8,7 @@ export const UserList = () => {
     const navigate = useNavigate();
 
     const handleDetail = (id) => {
-        navigate("/list/${id}");
+        navigate(`/list/${id}`);
     }
 
     return( 

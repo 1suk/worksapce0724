@@ -1,6 +1,7 @@
 import './App.css'
 import { UserProvider } from './components/UserContext';
 import UserList from './page/UserList';
+import UserDetail from './page/UserDetail';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserRegisteration from './page/UserRegistration';
 
