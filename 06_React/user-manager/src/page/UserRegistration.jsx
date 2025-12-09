@@ -15,13 +15,14 @@ export const UserRegisteration = () => {
 
         addUser({
             name : name.trim(),
-            age : Number(age),
+            age : age,
             status : status.trim()
         });
 
         setName('');
         setAge('');
         setStatus('');
+
         navigate('/list');
     }
 
