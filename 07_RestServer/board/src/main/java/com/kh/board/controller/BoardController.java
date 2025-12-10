@@ -1,30 +1,27 @@
 package com.kh.board.controller;
 
+import com.kh.board.controller.dto.request.BoardRequest;
 import com.kh.board.controller.dto.response.BoardResponse;
 import com.kh.board.entity.Board;
-import com.kh.board.mapper.BoardMapper;
 import com.kh.board.service.BoardService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor // 롬복에서 final 필드의 매개변수를 받는 생성자를 생략하게 해줌
+@RequiredArgsConstructor
 @RestController//모든 controller 메서드의 리턴을 ResponseBody로 처리하여 데이터를 반환한다.
-@RequestMapping("/board")
+@RequestMapping("/api/board")
 public class BoardController {
 
     private final BoardService boardService;
-
-    // public BoardController(BoardService boardService) {
-    //     this.boardService = boardService;
-    // }
 
     //@ResponseBody
     @GetMapping
@@ -38,5 +35,42 @@ public class BoardController {
         }
 
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<String> createBoard(BoardRequest.CreateDto request, MultipartFile upfile) throws IOException {
+        if (request == null || request.getUser_id() == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if(upfile != null && !upfile.isEmpty()){ //upfile != null 추가, 404 오류 발생 X
+            File file = new File("C:\\workspace\\07_RestServer\\board\\src\\main\\resources\\uploads", upfile.getOriginalFilename());
+            upfile.transferTo(file);
+
+            request.setFile_name("/uploads/"+upfile.getOriginalFilename());
+        }
+
+        Board board = request.toEntity();
+        int result = boardService.save(board);
+
+        if(result > 0){
+            return new ResponseEntity<>("게시글 등록 성공", HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>("게시글 등록 실패", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/{boardId}")
+    public ResponseEntity<BoardResponse.DetailDto> getBoard(@PathVariable long boardId){ //Params = PathVariable, int보다 long이 안정적
+        Board board = boardService.findOne(boardId);
+        BoardResponse.DetailDto result = BoardResponse.DetailDto.of(board);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{boardId}")
+    public ResponseEntity<String> deleteBoard(@PathVariable long boardId){
+        int result = boardService.delete(boardId);
+        return new ResponseEntity<>(result + "개의 게시물 삭제 완료", HttpStatus.OK);
     }
 }
